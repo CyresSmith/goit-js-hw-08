@@ -32,23 +32,24 @@ if (localStorage.getItem('feedback-form-state')) {
 // Обрабатываем событие Submit =====================================================
 
 const onSubmitFormEvent = (e) => {
+    event.preventDefault()
 
     if (localStorage.getItem('feedback-form-state')) {
         localStorage.removeItem('feedback-form-state');
     }
-
-    FeedbackData = {
+    
+    if (refs.email.value && refs.message.value) {
+        FeedbackData = {
         email: refs.email.value,
         message: refs.message.value,
-    }
-
-    if (FeedbackData.email || FeedbackData.message) {
-        console.log(FeedbackData);
+        }        
     } else {
         window.alert('The form is not completed! You need to fill it!');
     }
 
-    refs.form.reset()
+    console.log(FeedbackData);
+
+    refs.form.reset()    
 }
 
 refs.form.addEventListener('submit', onSubmitFormEvent);
